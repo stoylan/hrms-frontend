@@ -1,5 +1,6 @@
 import React from 'react'
 import { Menu, Segment,Button } from 'semantic-ui-react'
+import { Link } from "react-router-dom";
 
 export default function Navi() {
     return (
@@ -9,8 +10,8 @@ export default function Navi() {
                     <Menu.Item
                         name='home'
                     />
-                    <Menu.Item
-                        name='Job Advertisements'
+                    <Menu.Item as={Link} to='/activateJobAdvertisement'
+                        name='Activate Job Advertisement'
                     />
                     <Menu.Item
                         name='Create Cv'
