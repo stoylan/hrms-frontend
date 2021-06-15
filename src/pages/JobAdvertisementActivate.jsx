@@ -1,14 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Icon, Menu, Table, Button, Item, Label } from 'semantic-ui-react'
 import JobAdvertisementService from "../services/jobAdvertisementService";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { useHistory } from 'react-router'
+
 
 export default function JobAdvertisementActivate() {
     const [jobAdvertisements, setJobAdvertisements] = useState([]);
+    let jobAdvertisementService = new JobAdvertisementService();
+    const history = useHistory()
+
+    function activationJobAdv(id){
+        jobAdvertisementService.activate(id)
+    
+        window.location.reload();
+        
+        alert("Succesfully activated job advertisement.")
+
+        //history.push("/activateJobAdvertisement")
+
+    }
+        
+    
 
     useEffect(() => {
         let jobAdvertisementService = new JobAdvertisementService();
         jobAdvertisementService.getNotActivated().then(result => setJobAdvertisements(result.data.data))
+
+
     }, [])
 
 
@@ -42,11 +61,13 @@ export default function JobAdvertisementActivate() {
                                             <Link to={"jobAdvertisement/"+jobadv.id}><Button floated='right' color='red' >
                                                 Delete
                                                 <Icon name='right chevron' />
-                                            </Button></Link>
-                                            <Link to={"jobAdvertisement/"+jobadv.id}><Button floated='right' color='green' >
+                                            </Button>
+                                            
+                                            </Link>
+                                            <Button floated='right' color='green' onClick={() => activationJobAdv(jobadv.id)} >
                                                 Activate
                                                 <Icon name='right chevron' />
-                                            </Button></Link>
+                                            </Button>
                                             
                                         </Item.Extra>
                                     </Item.Content>

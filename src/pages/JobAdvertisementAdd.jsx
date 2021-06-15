@@ -7,8 +7,12 @@ import JobService from "../services/jobService";
 import JobAdvertisementService from "../services/jobAdvertisementService";
 import WorkTimeService from "../services/workTimeService";
 import WorkTypeService from "../services/workTypeService";
+import { useHistory } from 'react-router'
+
 
 export default function JobAdvertisementAdd() {
+  const history = useHistory()
+
   let jobAdvertisementService = new JobAdvertisementService();
   const JobAdvertAddSchema = Yup.object().shape({
     lastApplyDate: Yup.date().nullable().required("Bu alanın doldurulması zorunludur"),
@@ -38,6 +42,7 @@ export default function JobAdvertisementAdd() {
     onSubmit: (values) => {
       values.employerId = 13;
       jobAdvertisementService.addJobAdvertisement(values).then((result) => console.log(result.data.data));
+      alert("Succesfully added Job advertisement please wait for activation by admin.")
     },
   });
 
